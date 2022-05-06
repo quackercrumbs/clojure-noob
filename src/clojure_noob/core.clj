@@ -129,11 +129,62 @@
 )
 (println "exercise 6" (radial-symetrize-body-parts-n ["arm", "leg"] 2))
 
+
 ;; Continuation of exercise 6, this time instead of a list of string, we have to read from a map
 (defn radial-symetrize-body-parts-n-map
   [asym-body-parts n]
   (reduce (fn [final-parts part] (into final-parts (repeater-part n part))) [] asym-body-parts))
-(radial-symetrize-body-parts-n-map [{:name "hand" :size 1} {:name "heart" :size 1.1 }] 10)
+#_(radial-symetrize-body-parts-n-map [{:name "hand" :size 1} {:name "heart" :size 1.1 }] 10)
 
 
+(defn blah
+  []
+  (str ""))
+#_(blah)
 
+(def word "Calvin")
+(def params {:name word})
+(println params)
+
+
+;; More about destructing: https://clojure.org/guides/destructuring#_associative_destructuring
+
+;; notes, `value-1` is nil because its not a string key
+(defn destruct-string-keys-test
+  []
+  (let [
+        x 1
+        {:strs [value-0 value-1 value-2]} {"value-0" 1 :value-1 2 "value-2" 3}
+        ]
+    (println value-0 value-1 value-2)
+    (println "blah")
+    )
+  )
+(destruct-string-keys-test)
+
+
+;; note, `value-2` is nil because its not a keyword
+(defn destruct-regular-keys-test
+  []
+  (let [
+        x 1
+        {:keys [value-0 value-1 value-2]} {:value-0 1 :value-1 2 "value-2" 3}
+        ]
+    (println value-0 value-1 value-2)
+    (println "blah")
+    )
+  )
+(destruct-regular-keys-test)
+
+;; note, `value-1` is nil because its not a symbol
+(defn destruct-sym-keys-test
+  []
+  (let [
+        x 1
+        {:syms [value-0 value-1]} {'value-0 "Jane" "value-1" "Doe"}
+        ]
+    (println value-0 value-1)
+    (println "destruct-sym-keys")
+    )
+  )
+(destruct-sym-keys-test)
