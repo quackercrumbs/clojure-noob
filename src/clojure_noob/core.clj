@@ -8,6 +8,7 @@
 
 
 ;; test recursion
+
 ;; - seems like once recur is called, it starts at the previous `loop`
 (defn recur_test
   [x]
@@ -100,6 +101,26 @@
 (println "exercise 5" (radial-symetrize-body-parts ["arm", "leg"]))
 
 
+;; Continuation of exercise 5, but this time instead of list of strings, we have to process a map
+(defn repeater-part
+  "returns a vector with the part repeated n times"
+  [n item]
+  (loop
+    [counter n
+     result []]
+    (if (< counter 1) result (recur (- counter 1) (conj result {:name (:name item) :size (:size item)}))
+    )
+  )
+)
+(repeater-part 2 {:name "calvin" :size 10})
+
+(defn radial-symetrize-body-parts-map
+  [asym-body-parts]
+  (reduce (fn [final-parts part] (into final-parts (repeater-part 5 part))) [] asym-body-parts)
+)
+(radial-symetrize-body-parts-map [{:name "head" :size 1}, {:name "foot" :size 3}])
+
+
 
 ;; exercise 6, building on top of 5
 (defn radial-symetrize-body-parts-n
@@ -108,8 +129,11 @@
 )
 (println "exercise 6" (radial-symetrize-body-parts-n ["arm", "leg"] 2))
 
-
-
+;; Continuation of exercise 6, this time instead of a list of string, we have to read from a map
+(defn radial-symetrize-body-parts-n-map
+  [asym-body-parts n]
+  (reduce (fn [final-parts part] (into final-parts (repeater-part n part))) [] asym-body-parts))
+(radial-symetrize-body-parts-n-map [{:name "hand" :size 1} {:name "heart" :size 1.1 }] 10)
 
 
 
