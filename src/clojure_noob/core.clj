@@ -188,3 +188,13 @@
     )
   )
 (destruct-sym-keys-test)
+
+;; the example name (val?) gets reused and assigned "b"
+(defn test-rename-field
+  []
+  (let [example "a"
+        example "b"]
+    (println example)
+    )
+  )
+(test-rename-field)
